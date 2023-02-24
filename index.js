@@ -10,6 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
+const theTeam = [];
+
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
@@ -34,7 +36,7 @@ function start() {
         type: 'input',
         name: 'id',
         message: 'Please enter the Manager\'s ID number',
-    }, 
+    },
     {
         type: 'input',
         name: 'email',
@@ -47,7 +49,8 @@ function start() {
     },
 
     ]).then(response => {
-        // populate manager info
+        // push manager responses to theTeam variable
+        theTeam.push(new Manager(response.name, response.id, response.email, response.officeNumber));
         promptForNextEmployee();
     })
 
@@ -65,35 +68,104 @@ const promptForNextEmployee = () => {
     }
     ]).then(response => {
         // if engineer
-        //    promptForEngineer
-        // else if intern
-        //    promptForIntern
-        // else
-        //    use the functionality from page-template to generate the team
+        if (response.type.includes("Engineer")) {
+            promptForEngineer();
+        } else if (response.type === "Intern") {
+            promptForIntern();
+            // use the functionality from page-template to generate the team
+        } else {
+            buildPage();
+            console.log('End Programme');
+        }
     })
 }
 
 const promptForEngineer = () => {
     inquirer.prompt([{
-        //engineer questions
-    }]).then(response => {
-        // add new engineer to employees array
-        // promptForNextEmployee
+        type: 'input',
+        name: 'name',
+        message: 'What is the Engineer\'s name?',
+        validate: function (input) {
+            if (input) {
+                return true;
+            } else {
+                console.log('This field cannot be left blank')
+                return false;
+            }
+        },
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: 'Please enter the Engineer\'s ID number',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Please enter the Engineer\'s email address',
+    },
+    {
+        type: 'input',
+        name: 'github',
+        message: 'Please enter the Engineer\'s Github username',
+    },
+    ]).then(response => {
+         // push manager responses to theTeam variable
+         theTeam.push(new Engineer(response.name, response.id, response.email, response.github));
+         promptForNextEmployee();
     })
 }
 
 const promptForIntern = () => {
     inquirer.prompt([{
-        //intern questions
-    }]).then(response => {
+        type: 'input',
+        name: 'name',
+        message: 'What is the Intern\'s name?',
+        validate: function (input) {
+            if (input) {
+                return true;
+            } else {
+                console.log('This field cannot be left blank')
+                return false;
+            }
+        },
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: 'Please enter the Intern\'s ID number',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Please enter the Intern\'s email address',
+    },
+    {
+        type: 'input',
+        name: 'school',
+        message: 'Please enter the Intern\'s School',
+    },
+    ]).then(response => {
         // add new intern to employees array
         // promptForNextEmployee
+        theTeam.push(new Intern(response.name, response.id, response.email, response.school));
+        promptForNextEmployee();
     })
 }
 
 const buildPage = () => {
     // render(myArrayOfTeamMembers)
+    console.log(theTeam);
 }
+
+// const buildPage = () => {
+//     const testArray = []
+//     testArray.push(new  Manager("Dan"...))
+//     testArray.push(new Employee("Daniel"...))
+//     testArray.push(new Intern("Danny".....))
+//  console.log(render(testArray))
+// }
+// buildPage();
 
 
 start();
