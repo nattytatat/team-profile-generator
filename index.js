@@ -67,7 +67,7 @@ const promptForNextEmployee = () => {
 
     }
     ]).then(response => {
-        // if engineer
+        // two ways of doing a condition check
         if (response.type.includes("Engineer")) {
             promptForEngineer();
         } else if (response.type === "Intern") {
