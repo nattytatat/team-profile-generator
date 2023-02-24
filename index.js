@@ -15,18 +15,55 @@ const render = require("./src/page-template.js");
 
 
 // Need to start the questions
+function start() {
+    inquirer.prompt([{
+        //manager questions
+        type: 'input',
+        name: 'name',
+        message: 'Welcome to the Team Profile Generator. Please enter the Team Manager\'s name.',
+        validate: function (input) {
+            if (input) {
+                return true;
+            } else {
+                console.log('This field cannot be left blank')
+                return false;
+            }
+        },
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: 'Please enter the Manager\'s ID number',
+    }, 
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Please enter the manager\'s email address',
+    },
+    {
+        type: 'input',
+        name: 'officeNumber',
+        message: 'Please enter the manager\'s Office Number',
+    },
 
-inquirer.prompt([{
-    //manager questions
-}]).then(response => {
-    // populate manager info
-    // promptForNexEmployee ()
-})
+    ]).then(response => {
+        // populate manager info
+        promptForNextEmployee();
+    })
+
+}
+
 
 const promptForNextEmployee = () => {
     inquirer.prompt([{
         // choice of 3
-    }]).then(response => {
+        type: 'list',
+        name: 'type',
+        message: 'What Type of Team Member would you like to add?',
+        choices: ['Engineer', 'Intern', 'Finish adding Team Members'],
+
+    }
+    ]).then(response => {
         // if engineer
         //    promptForEngineer
         // else if intern
@@ -55,6 +92,8 @@ const promptForIntern = () => {
 }
 
 const buildPage = () => {
-// render(myArrayOfTeamMembers)
+    // render(myArrayOfTeamMembers)
 }
 
+
+start();
