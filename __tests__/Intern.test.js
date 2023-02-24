@@ -1,5 +1,6 @@
 const Intern = require("../lib/Intern");
 
+// this test matches the constructor in the intern.js, where the constructor passes the extra school parameter
 test("Can set school via constructor", () => {
   const testValue = "UCLA";
   const e = new Intern("Foo", 1, "test@test.com", testValue);
