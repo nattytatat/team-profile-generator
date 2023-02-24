@@ -5,8 +5,8 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
+// const OUTPUT_DIR = path.resolve(__dirname, "output");
+// const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
@@ -110,9 +110,9 @@ const promptForEngineer = () => {
         message: 'Please enter the Engineer\'s Github username',
     },
     ]).then(response => {
-         // push manager responses to theTeam variable
-         theTeam.push(new Engineer(response.name, response.id, response.email, response.github));
-         promptForNextEmployee();
+        // push Engineer responses to theTeam variable
+        theTeam.push(new Engineer(response.name, response.id, response.email, response.github));
+        promptForNextEmployee();
     })
 }
 
@@ -154,9 +154,19 @@ const promptForIntern = () => {
 }
 
 const buildPage = () => {
-    // render(myArrayOfTeamMembers)
-    console.log(theTeam);
+    // render(theTeam - render is called at the top with require - this is the page template file)
+    // console.log(theTeam);
+    // console.log(render(theTeam));
+    const generatedHTML = render(theTeam);
+
+    fs.writeFile('./output/team.html', generatedHTML, (err) =>
+        err ? console.log(err) : console.log('You have generated a team member page in the output folder, named team.html'));
+
 }
+
+
+
+
 
 // const buildPage = () => {
 //     const testArray = []
