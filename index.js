@@ -5,8 +5,8 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html");
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
@@ -159,7 +159,7 @@ const buildPage = () => {
     // console.log(render(theTeam));
     const generatedHTML = render(theTeam);
 
-    fs.writeFile('./output/team.html', generatedHTML, (err) =>
+    fs.writeFile(outputPath, generatedHTML, (err) =>
         err ? console.log(err) : console.log('You have generated a team member page in the output folder, named team.html'));
 
 }
