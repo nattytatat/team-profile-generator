@@ -36,16 +36,43 @@ function start() {
         type: 'input',
         name: 'id',
         message: 'Please enter the Manager\'s ID number',
+        validate: function (input) {
+            // if is not a number, return the string as a number to pass as true
+            if (!isNaN(parseInt(input))) {
+                return true;
+            } else {
+                console.log('You must enter a valid number');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
         name: 'email',
         message: 'Please enter the manager\'s email address',
+        validate: function (input){
+            // https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
+            let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if (input.match(validRegex)) {
+                return true;
+            } else {
+                console.log('Please enter a valid email address');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
         name: 'officeNumber',
-        message: 'Please enter the manager\'s Office Number',
+        message: 'Please enter the manager\'s Office Number', validate: function (input) {
+            // if is not a number, return the string as a number to pass as true
+            if (!isNaN(parseInt(input))) {
+                return true;
+            } else {
+                console.log('You must enter a valid number');
+                return false;
+            }
+        }
     },
 
     ]).then(response => {
@@ -97,12 +124,30 @@ const promptForEngineer = () => {
     {
         type: 'input',
         name: 'id',
-        message: 'Please enter the Engineer\'s ID number',
+        message: 'Please enter the Engineer\'s ID number', 
+        validate: function (input) {
+            // if is not a number, return the string as a number to pass as true
+            if (!isNaN(parseInt(input))) {
+                return true;
+            } else {
+                console.log('You must enter a valid number');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
         name: 'email',
         message: 'Please enter the Engineer\'s email address',
+        validate: function (input){
+            let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if (input.match(validRegex)) {
+                return true;
+            } else {
+                console.log('Please enter a valid email address');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
@@ -134,16 +179,42 @@ const promptForIntern = () => {
         type: 'input',
         name: 'id',
         message: 'Please enter the Intern\'s ID number',
+        validate: function (input) {
+            // if is not a number, return the string as a number to pass as true
+            if (!isNaN(parseInt(input))) {
+                return true;
+            } else {
+                console.log('You must enter a valid number');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
         name: 'email',
         message: 'Please enter the Intern\'s email address',
+        validate: function (input){
+            let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if (input.match(validRegex)) {
+                return true;
+            } else {
+                console.log('Please enter a valid email address');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
         name: 'school',
         message: 'Please enter the Intern\'s School',
+        validate: function (input) {
+            if (input) {
+                return true;
+            } else {
+                console.log('This field cannot be left blank')
+                return false;
+            }
+        },
     },
     ]).then(response => {
         // add new intern to employees array
@@ -155,27 +226,11 @@ const promptForIntern = () => {
 
 const buildPage = () => {
     // render(theTeam - render is called at the top with require - this is the page template file)
-    // console.log(theTeam);
-    // console.log(render(theTeam));
     const generatedHTML = render(theTeam);
 
     fs.writeFile(outputPath, generatedHTML, (err) =>
         err ? console.log(err) : console.log('You have generated a team member page in the output folder, named team.html'));
 
 }
-
-
-
-
-
-// const buildPage = () => {
-//     const testArray = []
-//     testArray.push(new  Manager("Dan"...))
-//     testArray.push(new Employee("Daniel"...))
-//     testArray.push(new Intern("Danny".....))
-//  console.log(render(testArray))
-// }
-// buildPage();
-
 
 start();
