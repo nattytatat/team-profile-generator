@@ -74,5 +74,6 @@ npm test
 * Inquirer - Documentation
 
 ## Links
-You can find the corresponding Github repo [here](https://github.com/nattytatat/team-profile-generator)
+- You can find the corresponding Github repo [here](https://github.com/nattytatat/team-profile-generator)
+- The HTML Output file can be found [here](https://github.com/nattytatat/team-profile-generator/blob/main/output/team.html)
 
